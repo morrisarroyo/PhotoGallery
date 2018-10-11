@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public static final int DATE_STRING_LENGTH = 8;
     public static final int DATE_TIME_STRING_LENGTH = 14;
+    public static final String KEY_IMAGE_DATA = "";
 
 
     private String currentPhotoPath = null;
@@ -83,10 +84,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Date maxDate = new Date(Long.MAX_VALUE);
         photoGallery = helper.populateGallery(minDate, maxDate);
         Log.d("onCreate, size", Integer.toString(photoGallery.size()));
-        if (photoGallery.size() > 0)
+        if (photoGallery.size() > 0) {
             currentPhotoPath = photoGallery.get(currentPhotoIndex);
-        displayPhoto(currentPhotoPath);
-        et.setText(helper.getCaption(currentPhotoPath));
+            displayPhoto(currentPhotoPath);
+        } else {
+            displayEmptyPhoto();
+        }
     }
 
 

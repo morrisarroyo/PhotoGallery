@@ -5,6 +5,8 @@ import android.app.Instrumentation;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.rule.ActivityTestRule;
@@ -12,10 +14,15 @@ import android.support.test.runner.AndroidJUnit4;
 import android.view.KeyEvent;
 import junit.framework.AssertionFailedError;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.MethodRule;
 import org.junit.runner.RunWith;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.clearText;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -25,6 +32,8 @@ import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.Intents.intending;
+import static android.support.test.espresso.intent.matcher.IntentMatchers.hasAction;
+import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.toPackage;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -36,6 +45,19 @@ public class PhotoGalleryExpressoTest {
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule =
             new ActivityTestRule<>(MainActivity.class);
+/*
+    private Instrumentation.ActivityResult getSubCameraIntent() {
+        Intent resultData = new Intent();
+        Bitmap bp = BitmapFactory.decodeResource(mIntentsRule.getActivity().getResources(),
+                R.mipmap.ic_launcher);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("0", bp);
+        resultData.putExtras(bundle);
+        Instrumentation.ActivityResult result =
+                new Instrumentation.ActivityResult(Activity.RESULT_OK, resultData);
+        return result;
+    }
+    */
 
     @Test
     public void ensureFilterCaptionWork() {
@@ -122,7 +144,7 @@ public class PhotoGalleryExpressoTest {
 
     @Test
     public void ensureFilterLocationInvalid() {
-
+        //onView(withId(R.id.button_snap)).perform(click());
         onView(withId(R.id.button_filter)).perform(click());
         onView(withId(R.id.editText_latitude_filter))
                 .perform(typeText("51"), closeSoftKeyboard());
