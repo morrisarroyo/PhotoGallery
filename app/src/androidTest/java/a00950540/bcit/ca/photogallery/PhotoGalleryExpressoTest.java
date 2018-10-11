@@ -97,6 +97,9 @@ public class PhotoGalleryExpressoTest {
                 //Log.d("FileCreation", "Failed");
             }
         }
+
+        onView(withId(R.id.button_filter)).perform(click());
+        onView(withId(R.id.button_filter_filter)).perform(click());
     }
 
     @Test
@@ -105,11 +108,11 @@ public class PhotoGalleryExpressoTest {
         //onView(withId(R.id.button_snap)).perform(click());
         onView(withId(R.id.button_filter)).perform(click());
         onView(withId(R.id.editText_caption_filter))
-                .perform(typeText("Food"), closeSoftKeyboard());
+                .perform(typeText("Caption"), closeSoftKeyboard());
 
         onView(withId(R.id.button_filter_filter)).perform(click());
         // Check that the text was changed.
-        //onView(withId(R.id.editText_caption)).check(matches(withText("Food")));
+        onView(withId(R.id.editText_caption)).check(matches(withText("Caption")));
         onView(withId(R.id.text_value_index_gallery)).check(matches(withText("0")));
 
     }
@@ -146,7 +149,7 @@ public class PhotoGalleryExpressoTest {
     public void ensureSaveCaptionWork() {
 
         //onView(withId(R.id.button_snap)).perform(click());
-        onView(withId(R.id.button_reset_gallery)).perform(click());
+        //onView(withId(R.id.button_reset_gallery)).perform(click());
         onView(withId(R.id.editText_caption)).perform(clearText())
                 .perform(typeText("Felurian"), closeSoftKeyboard());
         onView(withId(R.id.button_save)).perform(click());
@@ -155,13 +158,12 @@ public class PhotoGalleryExpressoTest {
         onView(withId(R.id.editText_caption)).check(matches(withText("Felurian")));
     }
 
-
     @Test
     public void takePicture() {
         onView(withId(R.id.button_snap)).perform(click());
         onView(withId(R.id.editText_caption)).check(matches(withText("Caption")));
     }
-    
+
     @Test
     public void ensureFilterNothingWork() {
 
@@ -200,25 +202,15 @@ public class PhotoGalleryExpressoTest {
     }
     @Test
     public void ensureFilterDateTimeWork() {
-        Calendar calendar = Calendar.getInstance();
-        Date today = calendar.getTime();
-
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
-        Date tomorrow = calendar.getTime();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-
-        String todayAsString = dateFormat.format(today);
-        String tomorrowAsString = dateFormat.format(tomorrow);
-
         //onView(withId(R.id.button_snap)).perform(click());
         onView(withId(R.id.button_filter)).perform(click());
         onView(withId(R.id.editText_dateFrom_filter))
-                .perform(typeText(todayAsString), closeSoftKeyboard());
+                .perform(typeText("20181000111100"), closeSoftKeyboard());
         onView(withId(R.id.editText_dateTo_filter))
-                .perform(typeText(tomorrowAsString), closeSoftKeyboard());
+                .perform(typeText("20181001111100"), closeSoftKeyboard());
         onView(withId(R.id.button_filter_filter)).perform(click());
         // Check that the text was changed.
-        //onView(withId(R.id.text_value_date_gallery)).check(matches(withText("20181010170610")));
+        //onView(withId(R.id.text_value_date_gallery)).check(matches(withText("20181000111100")));
         onView(withId(R.id.text_value_index_gallery)).check(matches(withText("0")));
     }
 
@@ -238,6 +230,7 @@ public class PhotoGalleryExpressoTest {
 
     @Test
     public void ensureFilterWork() {
+        /*
         Calendar calendar = Calendar.getInstance();
         Date today = calendar.getTime();
 
@@ -247,23 +240,23 @@ public class PhotoGalleryExpressoTest {
 
         String todayAsString = dateFormat.format(today);
         String tomorrowAsString = dateFormat.format(tomorrow);
-
+        */
         //onView(withId(R.id.button_snap)).perform(click());
         onView(withId(R.id.button_filter)).perform(click());
 
         onView(withId(R.id.editText_caption_filter))
                 .perform(typeText("Caption"), closeSoftKeyboard());
         onView(withId(R.id.editText_dateFrom_filter))
-                .perform(typeText(todayAsString), closeSoftKeyboard());
+                .perform(typeText("20181000111100"), closeSoftKeyboard());
         onView(withId(R.id.editText_dateTo_filter))
-                .perform(typeText(tomorrowAsString), closeSoftKeyboard());
+                .perform(typeText("20181001111100"), closeSoftKeyboard());/*
         onView(withId(R.id.editText_latitude_filter))
                 .perform(typeText("49.2804"), closeSoftKeyboard());
         onView(withId(R.id.editText_longitude_filter))
-                .perform(typeText("-122.9704"), closeSoftKeyboard());
+                .perform(typeText("-122.9704"), closeSoftKeyboard());*/
         onView(withId(R.id.button_filter_filter)).perform(click());
         // Check that the text was changed.
-        //onView(withId(R.id.text_value_date_gallery)).check(matches(withText("20181007212144")));
+        onView(withId(R.id.text_value_date_gallery)).check(matches(withText("20181000111100")));
         //onView(withId(R.id.text_value_latitude)).check(matches(withText("49.280483")));
         //onView(withId(R.id.text_value_longitude)).check(matches(withText("-122.97044")));
         onView(withId(R.id.text_value_index_gallery)).check(matches(withText("0")));
