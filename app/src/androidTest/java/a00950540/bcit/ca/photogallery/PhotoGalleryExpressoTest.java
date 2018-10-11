@@ -11,6 +11,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
+import android.media.ExifInterface;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -19,6 +20,7 @@ import android.support.test.espresso.base.MainThread;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.util.Log;
 import android.view.KeyEvent;
 import junit.framework.AssertionFailedError;
 import org.junit.Assert;
@@ -52,7 +54,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.withContentDesc
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
-
 @RunWith(AndroidJUnit4.class)
 public class PhotoGalleryExpressoTest {
     @Rule
@@ -84,19 +85,31 @@ public class PhotoGalleryExpressoTest {
                     + "_" + "2018100" + i
                     + "_" + "11110" + i + "_.jpg";
             File image = new File(dir, imageFileName);
-
             Context c = mActivityRule.getActivity().getApplicationContext();
             //Drawable d = c.getDrawable();
             Bitmap bp = BitmapFactory.decodeResource(c.getResources(), R.mipmap.setsuna);
             try {
+
+
                 FileOutputStream out = new FileOutputStream(image);
                 bp.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                ExifInterface exif = new ExifInterface(image.getAbsolutePath());
+
+                Log.d("populateGalleryWithDummyImages", image.getAbsolutePath());
+
+                exif.setAttribute(ExifInterface.TAG_GPS_LATITUDE, GPS.convert(48f + (0.5f * i)));
+                exif.setAttribute(ExifInterface.TAG_GPS_LATITUDE_REF, GPS.latitudeRef(48f + (0.5f * i)));
+                exif.setAttribute(ExifInterface.TAG_GPS_LONGITUDE, GPS.convert(-131f - (0.5f * i)));
+                exif.setAttribute(ExifInterface.TAG_GPS_LONGITUDE_REF, GPS.longitudeRef(-131f - (0.5f * i)));
+
+                exif.saveAttributes();
                 out.flush();
                 out.close();
             } catch (IOException ex) {
                 //Log.d("FileCreation", "Failed");
             }
         }
+
 
         onView(withId(R.id.button_filter)).perform(click());
         onView(withId(R.id.button_filter_filter)).perform(click());
@@ -179,13 +192,13 @@ public class PhotoGalleryExpressoTest {
         //onView(withId(R.id.button_snap)).perform(click());
         onView(withId(R.id.button_filter)).perform(click());
         onView(withId(R.id.editText_latitude_filter))
-                .perform(typeText("49.2804"), closeSoftKeyboard());
+                .perform(typeText("51"), closeSoftKeyboard());
         onView(withId(R.id.editText_longitude_filter))
-                .perform(typeText("-122.9704"), closeSoftKeyboard());
+                .perform(typeText("-134"), closeSoftKeyboard());
         onView(withId(R.id.button_filter_filter)).perform(click());
         // Check that the text was changed.
-        //onView(withId(R.id.text_value_latitude)).check(matches(withText("49.280483")));
-        //onView(withId(R.id.text_value_longitude)).check(matches(withText("-122.97044")));
+        onView(withId(R.id.text_value_latitude)).check(matches(withText("51.0")));
+        onView(withId(R.id.text_value_longitude)).check(matches(withText("-134.0")));
         onView(withId(R.id.text_value_index_gallery)).check(matches(withText("0")));
     }
 
@@ -247,18 +260,18 @@ public class PhotoGalleryExpressoTest {
         onView(withId(R.id.editText_caption_filter))
                 .perform(typeText("Caption"), closeSoftKeyboard());
         onView(withId(R.id.editText_dateFrom_filter))
-                .perform(typeText("20181000111100"), closeSoftKeyboard());
+                .perform(typeText("20181003111100"), closeSoftKeyboard());
         onView(withId(R.id.editText_dateTo_filter))
-                .perform(typeText("20181001111100"), closeSoftKeyboard());/*
+                .perform(typeText("20181004111100"), closeSoftKeyboard());
         onView(withId(R.id.editText_latitude_filter))
-                .perform(typeText("49.2804"), closeSoftKeyboard());
+                .perform(typeText("49.5"), closeSoftKeyboard());
         onView(withId(R.id.editText_longitude_filter))
-                .perform(typeText("-122.9704"), closeSoftKeyboard());*/
+                .perform(typeText("-132.5"), closeSoftKeyboard());
         onView(withId(R.id.button_filter_filter)).perform(click());
         // Check that the text was changed.
-        onView(withId(R.id.text_value_date_gallery)).check(matches(withText("20181000111100")));
-        //onView(withId(R.id.text_value_latitude)).check(matches(withText("49.280483")));
-        //onView(withId(R.id.text_value_longitude)).check(matches(withText("-122.97044")));
+        onView(withId(R.id.text_value_date_gallery)).check(matches(withText("20181003111103")));
+        onView(withId(R.id.text_value_latitude)).check(matches(withText("49.5")));
+        onView(withId(R.id.text_value_longitude)).check(matches(withText("-132.5")));
         onView(withId(R.id.text_value_index_gallery)).check(matches(withText("0")));
     }
 
