@@ -10,9 +10,9 @@
         android:id="@+id/imageView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintDimensionRatio="5:4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,14 +20,14 @@
         app:srcCompat="@android:drawable/sym_def_app_icon" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/text_label_caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/text_timeStamp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/text_caption"
         app:layout_constraintBottom_toBottomOf="@+id/editText_caption"
         app:layout_constraintEnd_toStartOf="@+id/editText_caption"
         app:layout_constraintHorizontal_bias="0.5"
@@ -57,27 +57,28 @@
         android:layout_marginStart="11dp"
         android:layout_marginTop="8dp"
         android:ems="10"
+        android:hint="@string/text_caption"
         android:inputType="text"
         android:text="@string/text_caption"
         app:layout_constraintEnd_toStartOf="@+id/button_save"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintStart_toEndOf="@+id/text_label_caption"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <Button
         android:id="@+id/button_snap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:text="@string/text_snap"
         app:layout_constraintBottom_toTopOf="@+id/button_filter"
         app:layout_constraintEnd_toStartOf="@+id/button_previous"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_caption" />
+        app:layout_constraintTop_toBottomOf="@+id/text_label_date_gallery" />
 
     <Button
         android:id="@+id/button_previous"
@@ -89,21 +90,21 @@
         app:layout_constraintEnd_toStartOf="@+id/button_next"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/button_snap"
-        app:layout_constraintTop_toBottomOf="@+id/editText_caption" />
+        app:layout_constraintTop_toBottomOf="@+id/text_label_date_gallery" />
 
     <Button
         android:id="@+id/button_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:text="@string/text_next"
         app:layout_constraintBottom_toTopOf="@+id/button_settings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/button_previous"
-        app:layout_constraintTop_toBottomOf="@+id/editText_caption" />
+        app:layout_constraintTop_toBottomOf="@+id/text_label_date_gallery" />
 
     <Button
         android:id="@+id/button_filter"
@@ -137,5 +138,80 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/button_reset_gallery"
         app:layout_constraintTop_toBottomOf="@+id/button_next" />
+
+    <TextView
+        android:id="@+id/text_label_latitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/string_latitude"
+        app:layout_constraintBottom_toBottomOf="@+id/text_value_latitude"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_caption" />
+
+    <TextView
+        android:id="@+id/text_label_longitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/string_longitude"
+        app:layout_constraintStart_toEndOf="@+id/text_value_latitude"
+        app:layout_constraintTop_toTopOf="@+id/text_label_latitude" />
+
+    <TextView
+        android:id="@+id/text_value_latitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/string_latitude"
+        app:layout_constraintStart_toStartOf="@+id/text_value_date_gallery"
+        app:layout_constraintTop_toBottomOf="@+id/editText_caption" />
+
+    <TextView
+        android:id="@+id/text_value_longitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/string_longitude"
+        app:layout_constraintStart_toEndOf="@+id/text_label_longitude"
+        app:layout_constraintTop_toTopOf="@+id/text_label_longitude" />
+
+    <TextView
+        android:id="@+id/text_label_date_gallery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/string_dateTime"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_label_latitude" />
+
+    <TextView
+        android:id="@+id/text_value_date_gallery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/string_dateTime"
+        app:layout_constraintStart_toEndOf="@+id/text_label_date_gallery"
+        app:layout_constraintTop_toTopOf="@+id/text_label_date_gallery" />
+
+    <TextView
+        android:id="@+id/text_label_index_gallery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/string_index"
+        app:layout_constraintStart_toEndOf="@+id/text_value_date_gallery"
+        app:layout_constraintTop_toTopOf="@+id/text_label_date_gallery" />
+
+    <TextView
+        android:id="@+id/text_value_index_gallery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/string_index"
+        app:layout_constraintStart_toEndOf="@+id/text_label_index_gallery"
+        app:layout_constraintTop_toTopOf="@+id/text_label_date_gallery" />
 
 </android.support.constraint.ConstraintLayout>

@@ -37,55 +37,41 @@ public class PhotoGalleryExpressoTest {
     public ActivityTestRule<MainActivity> mActivityRule =
             new ActivityTestRule<>(MainActivity.class);
 
-    // IntentsTestRule is an extension of ActivityTestRule. IntentsTestRule sets up Espresso-Intents
-    // before each Test is executed to allow stubbing and validation of intents.
-    //@Rule
-    //public IntentsTestRule<MainActivity> intentsRule = new IntentsTestRule<>(MainActivity.class);
-/*
-    @Test
-    public void ensureFilterDateWork() {
-
-        onView(withId(R.id.button_filter)).perform(click());
-        onView(withId(R.id.editText_dateFrom))
-                .perform(typeText("20180915"), closeSoftKeyboard());
-        onView(withId(R.id.editText_dateTo))
-                .perform(typeText("20180930"), closeSoftKeyboard());
-
-        onView(withId(R.id.button_filter_search)).perform(click());
-        // Check that the text was changed.
-        onView(withId(R.id.imageView));
-
-    }
-*/
     @Test
     public void ensureFilterCaptionWork() {
 
         onView(withId(R.id.button_filter)).perform(click());
-        onView(withId(R.id.editText_captionFilter))
+        onView(withId(R.id.editText_caption_filter))
                 .perform(typeText("Food"), closeSoftKeyboard());
 
-        onView(withId(R.id.button_filter_caption)).perform(click());
+        onView(withId(R.id.button_filter_filter)).perform(click());
         // Check that the text was changed.
-       // onView(withId(R.id.editText_caption)).check(matches(withText("Food")));
+        onView(withId(R.id.editText_caption)).check(matches(withText("Food")));
 
     }
-
 
     @Test
-    public void takePicture() {
+    public void ensureFilterCaptionInvalid() {
 
-        onView(withId(R.id.button_snap)).perform(click());
-        onView(withId(R.id.editText_caption)).check(matches(withText("Caption")));
+        onView(withId(R.id.button_filter)).perform(click());
+        onView(withId(R.id.editText_caption_filter))
+                .perform(typeText("Kvothe"), closeSoftKeyboard());
+
+        onView(withId(R.id.button_filter_filter)).perform(click());
+        // Check that the text was changed.
+        onView(withId(R.id.editText_caption)).check(matches(withText("No Image Found")));
+
     }
+
 
     @Test
     public void ensurePictureNavigationWork() {
 
         onView(withId(R.id.button_reset_gallery)).perform(click());
         onView(withId(R.id.button_filter)).perform(click());
-        onView(withId(R.id.editText_captionFilter))
+        onView(withId(R.id.editText_caption_filter))
                 .perform(typeText("Caption"), closeSoftKeyboard());
-        onView(withId(R.id.button_filter_caption)).perform(click());
+        onView(withId(R.id.button_filter_filter)).perform(click());
         onView(withId(R.id.button_next)).perform(click());
         onView(withId(R.id.button_previous)).perform(click());
         onView(withId(R.id.editText_caption)).check(matches(withText("Caption")));
@@ -101,4 +87,97 @@ public class PhotoGalleryExpressoTest {
         onView(withId(R.id.button_previous)).perform(click());
         onView(withId(R.id.editText_caption)).check(matches(withText("Banana")));
     }
+
+
+/*
+    @Test
+    public void takePicture() {
+        onView(withId(R.id.button_snap)).perform(click());
+        onView(withId(R.id.editText_caption)).check(matches(withText("Caption")));
+    }
+*/
+    @Test
+    public void ensureFilterNothingWork() {
+
+        onView(withId(R.id.button_filter)).perform(click());
+        onView(withId(R.id.editText_caption_filter));
+        onView(withId(R.id.button_filter_filter)).perform(click());
+        // Check that the text was changed.
+        onView(withId(R.id.text_value_index_gallery)).check(matches(withText("0")));
+    }
+
+    @Test
+    public void ensureFilterLocationWork() {
+
+        onView(withId(R.id.button_filter)).perform(click());
+        onView(withId(R.id.editText_latitude_filter))
+                .perform(typeText("49.2804"), closeSoftKeyboard());
+        onView(withId(R.id.editText_longitude_filter))
+                .perform(typeText("-122.9704"), closeSoftKeyboard());
+        onView(withId(R.id.button_filter_filter)).perform(click());
+        // Check that the text was changed.
+        onView(withId(R.id.text_value_latitude)).check(matches(withText("49.280483")));
+        onView(withId(R.id.text_value_longitude)).check(matches(withText("-122.97044")));
+    }
+
+    @Test
+    public void ensureFilterLocationInvalid() {
+
+        onView(withId(R.id.button_filter)).perform(click());
+        onView(withId(R.id.editText_latitude_filter))
+                .perform(typeText("51"), closeSoftKeyboard());
+        onView(withId(R.id.editText_longitude_filter))
+                .perform(typeText("-140"), closeSoftKeyboard());
+        onView(withId(R.id.button_filter_filter)).perform(click());
+        // Check that the text was changed.
+        onView(withId(R.id.editText_caption)).check(matches(withText("No Image Found")));
+    }
+    @Test
+    public void ensureFilterDateTimeWork() {
+
+        onView(withId(R.id.button_filter)).perform(click());
+        onView(withId(R.id.editText_dateFrom_filter))
+                .perform(typeText("20181010170000"), closeSoftKeyboard());
+        onView(withId(R.id.editText_dateTo_filter))
+                .perform(typeText("20181010171000"), closeSoftKeyboard());
+        onView(withId(R.id.button_filter_filter)).perform(click());
+        // Check that the text was changed.
+        onView(withId(R.id.text_value_date_gallery)).check(matches(withText("20181010170610")));
+    }
+
+    @Test
+    public void ensureFilterDateTimeInvalid() {
+
+        onView(withId(R.id.button_filter)).perform(click());
+        onView(withId(R.id.editText_dateFrom_filter))
+                .perform(typeText("19900000000000"), closeSoftKeyboard());
+        onView(withId(R.id.editText_dateTo_filter))
+                .perform(typeText("19900000000001"), closeSoftKeyboard());
+        onView(withId(R.id.button_filter_filter)).perform(click());
+        // Check that the text was changed.
+        onView(withId(R.id.editText_caption)).check(matches(withText("No Image Found")));
+    }
+
+
+    @Test
+    public void ensureFilterWork() {
+
+        onView(withId(R.id.button_filter)).perform(click());
+        onView(withId(R.id.editText_dateFrom_filter))
+                .perform(typeText("20181007212000"), closeSoftKeyboard());
+        onView(withId(R.id.editText_dateTo_filter))
+                .perform(typeText("20181007212200"), closeSoftKeyboard());
+        onView(withId(R.id.editText_latitude_filter))
+                .perform(typeText("49.2804"), closeSoftKeyboard());
+        onView(withId(R.id.editText_longitude_filter))
+                .perform(typeText("-122.9704"), closeSoftKeyboard());
+        onView(withId(R.id.button_filter_filter)).perform(click());
+        // Check that the text was changed.
+        onView(withId(R.id.text_value_date_gallery)).check(matches(withText("20181007212144")));
+        onView(withId(R.id.text_value_latitude)).check(matches(withText("49.280483")));
+        onView(withId(R.id.text_value_longitude)).check(matches(withText("-122.97044")));
+        onView(withId(R.id.text_value_index_gallery)).check(matches(withText("0")));
+    }
+
+
 }

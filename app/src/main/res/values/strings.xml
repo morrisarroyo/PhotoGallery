@@ -13,4 +13,15 @@
     <string name="string_search">Search</string>
     <string name="string_filter">Filter</string>
     <string name="string_reset">Reset</string>
+    <string name="string_latitude">Latitude</string>
+    <string name="string_longitude">Longitude</string>
+    <string name="string_filterByCaption">Filter By Caption</string>
+    <string name="string_filterByDate">Filter By Date</string>
+    <string name="string_filterByLocation">Filter By Location</string>
+    <string name="string_dateFormat">yyyyMMdd</string>
+    <string name="string_date">Date</string>
+    <string name="string_index">Index</string>
+    <string name="string_dateTimeFormat">yyyyMMddHHmmss</string>
+    <string name="string_dateTimeFormatOptions">yyyyMMdd(HHmmss)</string>
+    <string name="string_dateTime">DateTime</string>>
 </resources>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FilterActivity">
+
+    <TextView
+        android:id="@+id/text_label_caption_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/text_caption"
+        app:layout_constraintBottom_toBottomOf="@+id/editText_caption_filter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editText_caption_filter"
+        tools:text="@string/text_caption" />
+
+    <EditText
+        android:id="@+id/editText_caption_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="@string/text_caption"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_label_filterByCaption" />
+
+    <EditText
+        android:id="@+id/editText_dateFrom_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="@string/string_dateTimeFormatOptions"
+        android:inputType="date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_label_filterByDate" />
+
+    <TextView
+        android:id="@+id/text_label_dateFrom_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="19dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/text_fromDate"
+        app:layout_constraintBottom_toBottomOf="@+id/editText_dateFrom_filter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editText_dateFrom_filter"
+        app:layout_constraintVertical_bias="0.518"
+        tools:text="@string/text_fromDate" />
+
+    <TextView
+        android:id="@+id/text_label_dateTo_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/text_toDate"
+        app:layout_constraintBottom_toBottomOf="@+id/editText_dateTo_filter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editText_dateTo_filter"
+        tools:text="@string/text_toDate" />
+
+    <EditText
+        android:id="@+id/editText_dateTo_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="@string/string_dateTimeFormatOptions"
+        android:inputType="date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_dateFrom_filter" />
+
+    <TextView
+        android:id="@+id/text_label_latitude_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/string_latitude"
+        app:layout_constraintBottom_toBottomOf="@+id/editText_latitude_filter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editText_latitude_filter"
+        tools:text="@string/string_latitude" />
+
+    <EditText
+        android:id="@+id/editText_latitude_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="@string/string_latitude"
+        android:inputType="numberSigned|numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_label_filterByLocation" />
+
+    <TextView
+        android:id="@+id/text_label_longitude_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="@string/string_longitude"
+        app:layout_constraintBottom_toBottomOf="@+id/editText_longitude_filter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editText_longitude_filter"
+        tools:text="@string/string_longitude" />
+
+    <EditText
+        android:id="@+id/editText_longitude_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="@string/string_longitude"
+        android:inputType="numberSigned|numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_latitude_filter" />
+
+    <Button
+        android:id="@+id/button_filter_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/string_filter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_longitude_filter"
+        tools:text="@string/string_filter" />
+
+    <TextView
+        android:id="@+id/text_label_filterByCaption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/string_filterByCaption"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/string_filterByCaption" />
+
+    <TextView
+        android:id="@+id/text_label_filterByDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/string_filterByDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_caption_filter"
+        tools:text="@string/string_filterByDate" />
+
+    <TextView
+        android:id="@+id/text_label_filterByLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/string_filterByLocation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_dateTo_filter"
+        tools:text="@string/string_filterByLocation" />
+</android.support.constraint.ConstraintLayout>

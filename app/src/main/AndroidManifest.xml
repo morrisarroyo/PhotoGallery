@@ -8,6 +8,8 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
+    <uses-feature android:name="android.hardware.location.gps" />
 
     <application
         android:allowBackup="true"
@@ -26,7 +28,7 @@
         <activity android:name=".SearchActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".DisplayActivity" />
-        <activity android:name=".SearchCaptionActivity"></activity>
+        <activity android:name=".SearchCaptionActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -38,6 +40,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
+        <activity android:name=".FilterActivity"></activity>
     </application>
 
 </manifest>
