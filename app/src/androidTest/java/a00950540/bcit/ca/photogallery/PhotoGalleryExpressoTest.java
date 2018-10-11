@@ -2,14 +2,20 @@ package a00950540.bcit.ca.photogallery;
 
 import android.app.Activity;
 import android.app.Instrumentation;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.AdaptiveIconDrawable;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.base.MainThread;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -23,8 +29,11 @@ import org.junit.Test;
 import org.junit.rules.MethodRule;
 import org.junit.runner.RunWith;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Date;
 
 import static android.support.test.espresso.Espresso.onView;
@@ -62,10 +71,38 @@ public class PhotoGalleryExpressoTest {
         return result;
     }
     */
+    @Before
+    public void populateGalleryWithDummyImages() {
+        File dir = mActivityRule.getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
+        File[] files = dir.listFiles();
+        for(File file: files) {
+            file.delete();
+        }
+        for(int i = 0; i < 10; i++ ) {
+            String imageFileName = "_Caption" + ""
+                    + "_" + "2018100" + i
+                    + "_" + "11110" + i + "_.jpg";
+            File image = new File(dir, imageFileName);
+
+            Context c = mActivityRule.getActivity().getApplicationContext();
+            //Drawable d = c.getDrawable();
+            Bitmap bp = BitmapFactory.decodeResource(c.getResources(), R.mipmap.setsuna);
+            try {
+                FileOutputStream out = new FileOutputStream(image);
+                bp.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                out.flush();
+                out.close();
+            } catch (IOException ex) {
+                //Log.d("FileCreation", "Failed");
+            }
+        }
+    }
+
     @Test
     public void ensureFilterCaptionWork() {
 
-        onView(withId(R.id.button_snap)).perform(click());
+        //onView(withId(R.id.button_snap)).perform(click());
         onView(withId(R.id.button_filter)).perform(click());
         onView(withId(R.id.editText_caption_filter))
                 .perform(typeText("Food"), closeSoftKeyboard());
@@ -94,7 +131,7 @@ public class PhotoGalleryExpressoTest {
     @Test
     public void ensurePictureNavigationWork() {
 
-        onView(withId(R.id.button_snap)).perform(click());
+        //onView(withId(R.id.button_snap)).perform(click());
         onView(withId(R.id.button_reset_gallery)).perform(click());
         onView(withId(R.id.button_filter)).perform(click());
         onView(withId(R.id.editText_caption_filter))
@@ -108,24 +145,23 @@ public class PhotoGalleryExpressoTest {
     @Test
     public void ensureSaveCaptionWork() {
 
-        onView(withId(R.id.button_snap)).perform(click());
+        //onView(withId(R.id.button_snap)).perform(click());
         onView(withId(R.id.button_reset_gallery)).perform(click());
         onView(withId(R.id.editText_caption)).perform(clearText())
-                .perform(typeText("Banana"), closeSoftKeyboard());
+                .perform(typeText("Felurian"), closeSoftKeyboard());
         onView(withId(R.id.button_save)).perform(click());
         onView(withId(R.id.button_next)).perform(click());
         onView(withId(R.id.button_previous)).perform(click());
-        onView(withId(R.id.editText_caption)).check(matches(withText("Banana")));
+        onView(withId(R.id.editText_caption)).check(matches(withText("Felurian")));
     }
 
 
-/*
     @Test
     public void takePicture() {
         onView(withId(R.id.button_snap)).perform(click());
         onView(withId(R.id.editText_caption)).check(matches(withText("Caption")));
     }
-*/
+    
     @Test
     public void ensureFilterNothingWork() {
 
@@ -138,7 +174,7 @@ public class PhotoGalleryExpressoTest {
 
     @Test
     public void ensureFilterLocationWork() {
-        onView(withId(R.id.button_snap)).perform(click());
+        //onView(withId(R.id.button_snap)).perform(click());
         onView(withId(R.id.button_filter)).perform(click());
         onView(withId(R.id.editText_latitude_filter))
                 .perform(typeText("49.2804"), closeSoftKeyboard());
@@ -174,7 +210,7 @@ public class PhotoGalleryExpressoTest {
         String todayAsString = dateFormat.format(today);
         String tomorrowAsString = dateFormat.format(tomorrow);
 
-        onView(withId(R.id.button_snap)).perform(click());
+        //onView(withId(R.id.button_snap)).perform(click());
         onView(withId(R.id.button_filter)).perform(click());
         onView(withId(R.id.editText_dateFrom_filter))
                 .perform(typeText(todayAsString), closeSoftKeyboard());
